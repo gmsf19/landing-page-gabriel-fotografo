@@ -1,4 +1,5 @@
 import { Instagram, Mail, Phone, MapPin } from "lucide-react";
+import logoFooter from "@/assets/logo-footer-black.png";
 
 export default function Footer() {
   const scrollToSection = (id: string) => {
@@ -18,9 +19,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div data-aos="fade-up" data-aos-delay="100">
-            <h3 className="font-display text-2xl font-semibold mb-4">
+            <img src={logoFooter} alt="" className="mb-[-10px]" />
+            {/* <h3 className="font-display text-2xl font-semibold mb-4">
               Gabriel Mateus
-            </h3>
+            </h3> */}
             <p className="font-body text-muted-foreground text-sm">
               Fotógrafo profissional em Curitiba, especializado em capturar
               momentos únicos e emocionantes desde 2016.

@@ -1,27 +1,27 @@
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
+import bgDesk1 from "@/assets/heroSectionDesktop/bg-desk-1.webp";
+import bgDesk2 from "@/assets/heroSectionDesktop/bg-desk-2.webp";
+import bgDesk3 from "@/assets/heroSectionDesktop/bg-desk-3.webp";
+import bgDesk4 from "@/assets/heroSectionDesktop/bg-desk-4.webp";
+import bgDesk5 from "@/assets/heroSectionDesktop/bg-desk-5.webp";
+
+import bgMob1 from "@/assets/herosectionMobile/bg-mob-1.webp";
+import bgMob2 from "@/assets/herosectionMobile/bg-mob-2.webp";
+import bgMob3 from "@/assets/herosectionMobile/bg-mob-3.webp";
+import bgMob4 from "@/assets/herosectionMobile/bg-mob-4.webp";
+import bgMob5 from "@/assets/herosectionMobile/bg-mob-5.webp";
+
+import logoWhite from "@/assets/logo-large-white.png";
 
 export default function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentImageMobIndex, setCurrentImageMobIndex] = useState(0);
 
-  const backgroundImages = [
-    // "https://ae9245dd-025a-4622-813e-f60500e3e004.s3.us-east-2.amazonaws.com/vanessa-guilherme-optmized.webp",
-    "https://ae9245dd-025a-4622-813e-f60500e3e004.s3.us-east-2.amazonaws.com/casamentos/edneia-daniel-6.webp",
-    "https://ae9245dd-025a-4622-813e-f60500e3e004.s3.us-east-2.amazonaws.com/casamentos/edneia-daniel-5.webp",
-    "https://ae9245dd-025a-4622-813e-f60500e3e004.s3.us-east-2.amazonaws.com/gestantes/barbara-samuel-7.webp",
-    // Adicione mais URLs de imagens aqui conforme necessário
-  ];
+  const backgroundImages = [bgDesk1, bgDesk2, bgDesk3, bgDesk4, bgDesk5];
 
-  const backgroundImagesMob = [
-    "https://ae9245dd-025a-4622-813e-f60500e3e004.s3.us-east-2.amazonaws.com/banner/bg-mob-1.webp",
-    "https://ae9245dd-025a-4622-813e-f60500e3e004.s3.us-east-2.amazonaws.com/banner/bg-mob-2.webp",
-    "https://ae9245dd-025a-4622-813e-f60500e3e004.s3.us-east-2.amazonaws.com/banner/bg-mob-3.webp",
-    "https://ae9245dd-025a-4622-813e-f60500e3e004.s3.us-east-2.amazonaws.com/banner/bg-mob-4.webp",
-    "https://ae9245dd-025a-4622-813e-f60500e3e004.s3.us-east-2.amazonaws.com/banner/bg-mob-5.webp",
-    "https://ae9245dd-025a-4622-813e-f60500e3e004.s3.us-east-2.amazonaws.com/banner/bg-mob-6.webp",
-  ];
+  const backgroundImagesMob = [bgMob1, bgMob2, bgMob3, bgMob4, bgMob5];
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex(
@@ -29,7 +29,7 @@ export default function HeroSection() {
       );
 
       setCurrentImageMobIndex(prevIndex =>
-        prevIndex === 5 ? 0 : prevIndex + 1
+        prevIndex === 4 ? 0 : prevIndex + 1
       );
     }, 5000); // Troca a cada 5 segundos
     return () => clearInterval(interval);
@@ -79,14 +79,19 @@ export default function HeroSection() {
             />
           </div>
         ))}
-        <div className="absolute inset-0 bg-black/60 z-10" />
+        <div className="absolute inset-0 bg-black/80 z-10" />
       </div>
 
       {/* Content */}
       <div className="relative z-20 text-center text-white px-4">
-        <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+        <img
+          src={logoWhite}
+          alt=""
+          className="mx-auto mb-[-40px] animate-in fade-in slide-in-from-bottom-4 duration-1000 lg:h-[300px]"
+        />
+        {/* <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 animate-in fade-in slide-in-from-bottom-4 duration-1000">
           Gabriel Ferreira
-        </h1>
+        </h1> */}
         <p className="font-heading text-xl md:text-2xl lg:text-3xl mb-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-150">
           Fotógrafo em Curitiba e Região
         </p>
