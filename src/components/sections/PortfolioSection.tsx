@@ -30,6 +30,8 @@ export default function PortfolioSection() {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
   const [isButtonFixed, setIsButtonFixed] = useState(false);
 
+  const [seeMorePosition, setSeeMorePosition] = useState(3);
+
   // ✅ ADICIONAR ESTAS REFS:
   const sectionRef = useRef<HTMLElement>(null);
   const categoriesRef = useRef<HTMLDivElement>(null);
@@ -78,25 +80,29 @@ export default function PortfolioSection() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [loading]);
 
+  const allFotosCategoryTodos = (() => {
+    // 1. Agrupar imagens por categoria
+    const grouped = portfolioItems.reduce((acc: any, item) => {
+      if (!acc[item.category]) {
+        acc[item.category] = [];
+      }
+      acc[item.category].push(item);
+      return acc;
+    }, {});
+
+    // 2. Pegar apenas 3 primeiros de cada categoria
+    const result: any = [];
+    Object.values(grouped).forEach((items: any) => {
+      result.push(...items.slice(0, 3));
+    });
+    return result;
+  })();
+
+  console.log(allFotosCategoryTodos.length);
+
   const filteredItems =
     activeCategory === "todos"
-      ? (() => {
-          // 1. Agrupar imagens por categoria
-          const grouped = portfolioItems.reduce((acc: any, item) => {
-            if (!acc[item.category]) {
-              acc[item.category] = [];
-            }
-            acc[item.category].push(item);
-            return acc;
-          }, {});
-
-          // 2. Pegar apenas 3 primeiros de cada categoria
-          const result: any = [];
-          Object.values(grouped).forEach((items: any) => {
-            result.push(...items.slice(0, 3));
-          });
-          return result;
-        })()
+      ? allFotosCategoryTodos.slice(0, seeMorePosition)
       : portfolioItems.filter(item => item.category === activeCategory);
 
   const openLightbox = (index: number) => {
@@ -134,13 +140,17 @@ export default function PortfolioSection() {
       });
     }
   };
+
+  const setSeeMore = () => {
+    setSeeMorePosition(prev => prev + 3);
+  };
   return (
     <section
       id="portfolio"
       ref={sectionRef}
       className="py-20 md:py-32 bg-background relative"
     >
-      <div className="container">
+      <div className="container flex flex-col">
         <div
           ref={categoriesRef}
           className="text-center mb-12"
@@ -197,26 +207,36 @@ export default function PortfolioSection() {
                   </p>
                 </div>
               ) : (
-                filteredItems.map((item: any, index: any) => (
-                  <div
-                    key={item.id}
-                    className="group relative aspect-[4/5] overflow-hidden rounded-lg shadow-lg cursor-pointer"
-                    data-aos="zoom-in"
-                    data-aos-duration="600"
-                    data-aos-delay={index * 50}
-                    onClick={() => openLightbox(index)}
-                  >
-                    <img
-                      src={item.imageUrl}
-                      alt={`Portfólio - ${item.category}`}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                ))
+                <>
+                  {filteredItems.map((item: any, index: any) => (
+                    <div
+                      key={item.id}
+                      className="group relative aspect-[4/5] overflow-hidden rounded-lg shadow-lg cursor-pointer"
+                      data-aos="zoom-in"
+                      data-aos-duration="600"
+                      data-aos-delay={index * 50}
+                      onClick={() => openLightbox(index)}
+                    >
+                      <img
+                        src={item.imageUrl}
+                        alt={`Portfólio - ${item.category}`}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                  ))}
+                </>
               )}
             </div>
+            {seeMorePosition < 21 && (
+              <button
+                className="underline text-accent mx-auto mt-[20px]"
+                onClick={setSeeMore}
+              >
+                Ver mais
+              </button>
+            )}
             {!loading && !error && (
               <>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

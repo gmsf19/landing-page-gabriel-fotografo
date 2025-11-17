@@ -19,7 +19,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div data-aos="fade-up" data-aos-delay="100">
-            <img src={logoFooter} alt="" className="mb-[-10px]" />
+            <img src={logoFooter} alt="" className="mb-[-10px] h-[100px]" />
             {/* <h3 className="font-display text-2xl font-semibold mb-4">
               Gabriel Mateus
             </h3> */}
@@ -80,7 +80,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="mt-12 pt-8 border-t border-border text-center">
           <p className="font-body text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Gabriel Mateus Fotografia. Todos os
+            © {new Date().getFullYear()} Gabriel Ferreira Fotógrafo. Todos os
             direitos reservados.
           </p>
           <p className="text-[8px] mb-[-40px] mt-[20px] opacity-[0.5]">
