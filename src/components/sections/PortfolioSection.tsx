@@ -229,7 +229,7 @@ export default function PortfolioSection() {
                 </>
               )}
             </div>
-            {seeMorePosition < 21 && (
+            {seeMorePosition < 21 && activeCategory === "todos" && (
               <button
                 className="underline text-accent mx-auto mt-[20px]"
                 onClick={setSeeMore}
