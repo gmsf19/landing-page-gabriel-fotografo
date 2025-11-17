@@ -17,12 +17,29 @@ export default function ContactSection() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Simulate form submission
-    toast.success(
-      "Mensagem enviada com sucesso! Em breve entraremos em contato."
-    );
+    // Validar se os campos obrigatórios estão preenchidos
+    if (!formData.name || !formData.email || !formData.message) {
+      toast.error("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
 
-    // Reset form
+    const whatsappMessage =
+      `*Nova mensagem do site*\n\n` +
+      `*Nome:* ${formData.name}\n` +
+      `*E-mail:* ${formData.email}\n` +
+      `*Telefone:* ${formData.phone || "Não informado"}\n\n` +
+      `*Mensagem:*\n${formData.message}`;
+
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+
+    const whatsappNumber = "5534984375630";
+
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+    window.open(whatsappUrl, "_blank");
+
+    toast.success("Redirecionando para o WhatsApp! Complete o envio por lá.");
+
     setFormData({
       name: "",
       email: "",
@@ -130,7 +147,7 @@ export default function ContactSection() {
                 size="lg"
                 className="w-full font-heading bg-accent hover:bg-accent/90"
               >
-                Enviar Mensagem
+                Enviar via WhatsApp
               </Button>
             </form>
           </div>
